@@ -9,5 +9,6 @@ class Shift
     char_array = ("a".."z").to_a << " "
   end
 
+  
 
 end
