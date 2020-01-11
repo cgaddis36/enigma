@@ -20,9 +20,10 @@ class Shift
     (DateTime.now.strftime('%d%m%y').to_i ** 2).to_s[-4..-1].split(//)
   end
 
-  # def keys_hash
-  #   inner_number_array.each_with_index.reduce({}) do |keys_hash, (number, index)|
-  #     keys_hash[(65 + index).chr] = number
-  #   end
-  # end
+  def keys_hash
+    inner_number_array.each_with_index.reduce({}) do |keys_hash, (number, index)|
+      keys_hash[(65 + index).chr] = number.to_i + date_array[index].to_i
+      keys_hash
+    end
+  end
 end
