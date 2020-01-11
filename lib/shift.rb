@@ -26,4 +26,20 @@ class Shift
       keys_hash
     end
   end
+
+  def split_message(message)
+    split_message = []
+    (message.downcase.scan /.{1,4}/).each do |string|
+      split_message << string.split(//)
+    end
+    split_message
+  end
+
+  # def encrypted_message(message)
+  #   split_message(message).each do |inner_array|
+  #     inner_array.each do |letter|
+  #       require "pry"; binding.pry
+  #     end
+  #   end
+  # end
 end
