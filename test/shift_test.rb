@@ -26,8 +26,18 @@ class ShiftTest < Minitest::Test
     end
 
     def test_inner_number_array
-      assert_instance_of String, @shift.inner_number_array
-      assert_equal 8, @shift.inner_number_array.size
+      assert_instance_of Array, @shift.inner_number_array
+      assert_equal 4, @shift.inner_number_array.size
     end
+
+    def test_date_array
+      assert_instance_of Array, @shift.date_array
+      assert_equal 4, @shift.date_array
+    end
+
+    # def test_keys_hash
+    #   assert_instance_of Hash, @shift.keys_hash
+    #   assert_equal 4, @shift_keys_hash.size
+    # end
 
 end
