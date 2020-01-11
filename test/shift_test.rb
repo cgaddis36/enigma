@@ -35,9 +35,9 @@ class ShiftTest < Minitest::Test
       assert_equal 4, @shift.offset_date_array.size
     end
 
-    def test_keys_hash
-      assert_instance_of Hash, @shift.keys_hash
-      assert_equal 4, @shift.keys_hash.size
+    def test_encryption_hash
+      assert_instance_of Hash, @shift.encryption_hash
+      assert_equal 4, @shift.encryption_hash.size
     end
 
 end
