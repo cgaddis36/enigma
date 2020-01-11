@@ -24,4 +24,10 @@ class ShiftTest < Minitest::Test
       assert_instance_of Array, @shift.rand_keys
       assert_equal 5, @shift.rand_keys.size
     end
+
+    def test_inner_number_array
+      assert_instance_of String, @shift.inner_number_array
+      assert_equal 8, @shift.inner_number_array.size
+    end
+
 end
