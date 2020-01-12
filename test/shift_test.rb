@@ -40,4 +40,19 @@ class ShiftTest < Minitest::Test
       assert_equal 4, @shift.encryption_hash.size
     end
 
+    def test_split_message
+      assert_instance_of Array, @shift.split_message('Hello, World!')
+      assert_equal [["h", "e", "l", "l"], ["o", ",", " ", "w"], ["o", "r", "l", "d"], ["!"]], @shift.split_message('Hello, World!')
+      assert_equal 4, @shift.split_message("Hello, World!").size
+    end
+
+    def test_encrypted_message
+      assert_instance_of String, @shift.encrypted_message("Hello, World!")
+      assert_equal 13, @shift.encrypted_message("Hello, World!").size
+    end
+
+    def test_decryption_message
+      assert_instance_of String, @shift.decrypted_message("ehukl,hunlkk")
+    end
+
 end
