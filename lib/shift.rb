@@ -38,24 +38,27 @@ class Shift
 
 
   def encrypted_message(message)
+    new_message = []
     split_message(message).each do |inner_array|
-      inner_array.each_with_index do |letter, index|
+      inner_array.map.with_index do |letter, index|
         if !char_array.include?(letter)
-          letter
+          new_message << letter
         elsif index % 4 == 0
           a = char_array.rotate(encryption_hash["A"])
-          char_array[a.index(letter)]
+          new_message << char_array[a.index(letter)]
         elsif index % 4 == 1
           b = char_array.rotate(encryption_hash["B"])
-          char_array[b.index(letter)]
+          new_message << char_array[b.index(letter)]
         elsif index % 4 == 2
           c = char_array.rotate(encryption_hash["C"])
-          char_array[c.index(letter)]
-            require "pry"; binding.pry
-
-
+          new_message << char_array[c.index(letter)]
+        elsif index % 4 == 3
+          d = char_array.rotate(encryption_hash["D"])
+          new_message << char_array[d.index(letter)]
         end
       end
     end
+    new_message.join
   end
+
 end
