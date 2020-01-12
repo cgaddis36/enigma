@@ -35,11 +35,27 @@ class Shift
     split_message
   end
 
-  # def encrypted_message(message)
-  #   split_message(message).each do |inner_array|
-  #     inner_array.each do |letter|
-  #       require "pry"; binding.pry
-  #     end
-  #   end
-  # end
+
+
+  def encrypted_message(message)
+    split_message(message).each do |inner_array|
+      inner_array.each_with_index do |letter, index|
+        if !char_array.include?(letter)
+          letter
+        elsif index % 4 == 0
+          a = char_array.rotate(encryption_hash["A"])
+          char_array[a.index(letter)]
+        elsif index % 4 == 1
+          b = char_array.rotate(encryption_hash["B"])
+          char_array[b.index(letter)]
+        elsif index % 4 == 2
+          c = char_array.rotate(encryption_hash["C"])
+          char_array[c.index(letter)]
+            require "pry"; binding.pry
+
+
+        end
+      end
+    end
+  end
 end

@@ -46,9 +46,9 @@ class ShiftTest < Minitest::Test
       assert_equal 4, @shift.split_message("Hello, World!").size
     end
 
-    # def test_encrypted_message
-    #   assert_instance_of String, @shift.encrypted_message("Hello, World!")
-    #   assert_equal "hello, world!", @shift.encrypted_message("Hello, World!")
-    # end
+    def test_encrypted_message
+      assert_instance_of String, @shift.encrypted_message("Hello, World!")
+      assert_equal "hkllo, world!", @shift.encrypted_message("Hello, World!")
+    end
 
 end
