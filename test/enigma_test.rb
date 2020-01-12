@@ -1,10 +1,13 @@
 require_relative "test_helper"
 require_relative '../lib/enigma'
+require_relative '../lib/shift'
+
 
 class EnigmaTest < Minitest::Test
 
     def setup
       @enigma = Enigma.new
+      @shift = Shift.new
     end
 
     def test_enigma_exists
