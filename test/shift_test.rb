@@ -59,11 +59,15 @@ class ShiftTest < Minitest::Test
       date: "040895"
       }
       assert_equal expected, @shift.encrypt("hello world", "02715", "040895")
+      assert_instance_of Hash, @shift.encrypt("hello world", "02715")
     end
 
-    # def test_decryption_message
-    #   require "pry"; binding.pry
-    #   assert_instance_of String, @shift.decrypted_message("ehukl,hunlkk")
+    def test_decryption_message
+      assert_instance_of String, @shift.decrypted_message("keder ohulw", )
+    end
+
+    # def test_decryption_hash
+    #
     # end
 
 end

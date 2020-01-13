@@ -74,11 +74,23 @@ class Shift
 
   def encrypt(message, key = @key, date = offset)
     {encryption: encrypted_message(message, key, date), key: key, date: date}
-
   end
 
-  # def decrypted_message(message)
-  #
-  # end
+  def decrypted_message(message, key = @key, date = offset)
+    decryption_message = []
+    split_message(message).each do |inner_array|
+      inner_array.map.with_index do |letter, index|
+        if !@char_array.include?(letter)
+          decryption_message << letter
+        elsif index % 4 == 0
+          a = char_array.rotate(encryption_hash(key, date)["A"])
+          require "pry"; binding.pry
+        end
+
+
+
+    end
+    end
+  end
 
 end
