@@ -11,9 +11,9 @@ class Shift
     Array.new(5){rand(10)}
   end
 
-  def offset(date = @date)
-    (date.to_i ** 2).to_s[-4..-1].split(//)
-  end
+  # e(date = @date)
+  #   (date.to_i ** 2).to_s[-4..-1].split(//)
+  # end
 
   def inner_number_array(key = @key)
     inner_number_array = []
@@ -28,13 +28,9 @@ class Shift
     inner_number_array = inner_number_array.flatten
   end
 
-  def encryption_hash(key = @key, date = offset)
+  def encryption_hash(key = @key, date = @date)
     x = inner_number_array(key).each_with_index.reduce({}) do |keys_hash, (number, index)|
-      if date == offset
-        keys_hash[(65 + index).chr] = number.to_i + date[index].to_i
-      elsif date != offset
         keys_hash[(65 + index).chr] = number.to_i + (date.to_i ** 2).to_s.split(//)[-4..-1][index].to_i
-      end
       keys_hash
     end
     x
@@ -48,7 +44,7 @@ class Shift
     split_message
   end
 
-  def encrypted_message(message, key = @key, date = offset)
+  def encrypted_message(message, key = @key, date = @date)
     new_message = []
     split_message(message).each do |inner_array|
       inner_array.map.with_index do |letter, index|
@@ -72,15 +68,15 @@ class Shift
     new_message.join
   end
 
-  def encrypt(message, key = @key, date = offset)
+  def encrypt(message, key = @key, date = @date)
     {encryption: encrypted_message(message, key, date), key: key, date: date}
   end
 
-  def decrypt(message, key = @key, date = offset)
+  def decrypt(message, key = @key, date = @date)
     {decryption: decrypted_message(message, key, date), key: key, date: date}
   end
 
-  def decrypted_message(message, key = @key, date = offset)
+  def decrypted_message(message, key = @key, date = @date)
     decryption_message = []
     split_message(message).each do |inner_array|
       inner_array.map.with_index do |letter, index|

@@ -32,8 +32,8 @@ class ShiftTest < Minitest::Test
     end
 
     def test_offset_date_array
-      assert_instance_of Array, @shift.offset
-      assert_equal 4, @shift.offset.size
+      assert_instance_of String, @shift.date
+      assert_equal 6, @shift.date.size
     end
 
     def test_encryption_hash
@@ -53,12 +53,18 @@ class ShiftTest < Minitest::Test
     end
 
     def test_encrypt
-      expected = {
+      expected1 = {
       encryption: "keder ohulw",
       key: "02715",
       date: "040895"
       }
-      assert_equal expected, @shift.encrypt("hello world", "02715", "040895")
+      expected2 = {
+      encryption: "nib udmcxpu",
+      key: "02715",
+      date: "130120"
+      }
+      assert_equal expected1, @shift.encrypt("hello world", "02715", "040895")
+      assert_equal expected2, @shift.encrypt("hello world", "02715")
       assert_instance_of Hash, @shift.encrypt("hello world", "02715")
     end
 
