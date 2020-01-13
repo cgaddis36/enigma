@@ -1,27 +1,43 @@
 class Shift
-  attr_reader :char_array,
-              :rand_keys,
-              :offset_date_array
+  attr_reader :char_array, :date, :key
 
   def initialize
-    @rand_keys = Array.new(5){rand(10)}
     @char_array = ("a".."z").to_a << " "
-    @offset_date_array = (DateTime.now.strftime('%d%m%y').to_i ** 2).to_s[-4..-1].split(//)
+    @date = DateTime.now.strftime('%d%m%y')
+    @key = key
   end
 
-  def inner_number_array
+  def key
+    Array.new(5){rand(10)}
+  end
+
+  def offset(date = @date)
+    (date.to_i ** 2).to_s[-4..-1].split(//)
+  end
+
+  def inner_number_array(key = @key)
     inner_number_array = []
-    @rand_keys.each_cons(2) do |inner_numbers|
+    if !key.is_a? Array
+      key = key.to_s.split(//).map do |key|
+        key.to_i
+      end
+    end
+      key.each_cons(2) do |inner_numbers|
       inner_number_array << inner_numbers.join
     end
     inner_number_array = inner_number_array.flatten
   end
 
-  def encryption_hash
-    inner_number_array.each_with_index.reduce({}) do |keys_hash, (number, index)|
-      keys_hash[(65 + index).chr] = number.to_i + @offset_date_array[index].to_i
+  def encryption_hash(key = @key, date = offset)
+    x = inner_number_array(key).each_with_index.reduce({}) do |keys_hash, (number, index)|
+      if date == offset
+        keys_hash[(65 + index).chr] = number.to_i + date[index].to_i
+      elsif date != offset
+        keys_hash[(65 + index).chr] = number.to_i + (date.to_i ** 2).to_s.split(//)[-4..-1][index].to_i
+      end
       keys_hash
     end
+    x
   end
 
   def split_message(message)
@@ -32,34 +48,37 @@ class Shift
     split_message
   end
 
-
-
-  def encrypted_message(message)
+  def encrypted_message(message, key = @key, date = offset)
     new_message = []
     split_message(message).each do |inner_array|
       inner_array.map.with_index do |letter, index|
         if !@char_array.include?(letter)
           new_message << letter
         elsif index % 4 == 0
-          a = @char_array.rotate(encryption_hash["A"])
-          new_message << @char_array[a.index(letter)]
+          a = @char_array.rotate(encryption_hash(key, date)["A"])
+          new_message << a[(@char_array.index(letter))]
         elsif index % 4 == 1
-          b = @char_array.rotate(encryption_hash["B"])
-          new_message << @char_array[b.index(letter)]
+          b = @char_array.rotate(encryption_hash(key, date)["B"])
+          new_message << b[(@char_array.index(letter))]
         elsif index % 4 == 2
-          c = @char_array.rotate(encryption_hash["C"])
-          new_message << @char_array[c.index(letter)]
+          c = @char_array.rotate(encryption_hash(key, date)["C"])
+          new_message << c[(@char_array.index(letter))]
         elsif index % 4 == 3
-          d = @char_array.rotate(encryption_hash["D"])
-          new_message << @char_array[d.index(letter)]
+          d = @char_array.rotate(encryption_hash(key, date)["D"])
+          new_message << d[(@char_array.index(letter))]
         end
       end
     end
     new_message.join
   end
 
-  def decrypted_message(message)
+  def encrypt(message, key = @key, date = offset)
+    {encryption: encrypted_message(message, key, date), key: key, date: date}
 
   end
+
+  # def decrypted_message(message)
+  #
+  # end
 
 end
