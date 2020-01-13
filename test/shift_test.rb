@@ -63,7 +63,8 @@ class ShiftTest < Minitest::Test
     end
 
     def test_decryption_message
-      assert_instance_of String, @shift.decrypted_message("keder ohulw", )
+      assert_instance_of String, @shift.decrypted_message("keder ohulw", "02715", "040895")
+      assert_equal "hello world", @shift.decrypted_message("keder ohulw", "02715", "040895")
     end
 
     # def test_decryption_hash

@@ -84,13 +84,20 @@ class Shift
           decryption_message << letter
         elsif index % 4 == 0
           a = char_array.rotate(encryption_hash(key, date)["A"])
-          require "pry"; binding.pry
+          decryption_message << @char_array[a.index(letter)]
+        elsif index % 4 == 1
+          b = char_array.rotate(encryption_hash(key, date)["B"])
+          decryption_message << @char_array[b.index(letter)]
+        elsif index % 4 == 2
+          c = char_array.rotate(encryption_hash(key, date)["C"])
+          decryption_message << @char_array[c.index(letter)]
+        elsif index % 4 == 3
+          d = char_array.rotate(encryption_hash(key, date)["D"])
+          decryption_message << @char_array[d.index(letter)]
         end
-
-
-
+      end
     end
-    end
+    decryption_message.join
   end
 
 end
