@@ -76,6 +76,10 @@ class Shift
     {encryption: encrypted_message(message, key, date), key: key, date: date}
   end
 
+  def decrypt(message, key = @key, date = offset)
+    {decryption: decrypted_message(message, key, date), key: key, date: date}
+  end
+
   def decrypted_message(message, key = @key, date = offset)
     decryption_message = []
     split_message(message).each do |inner_array|
@@ -83,17 +87,17 @@ class Shift
         if !@char_array.include?(letter)
           decryption_message << letter
         elsif index % 4 == 0
-          a = char_array.rotate(encryption_hash(key, date)["A"])
-          decryption_message << @char_array[a.index(letter)]
+          a_shifted_chars = char_array.rotate(encryption_hash(key, date)["A"])
+          decryption_message << @char_array[a_shifted_chars.index(letter)]
         elsif index % 4 == 1
-          b = char_array.rotate(encryption_hash(key, date)["B"])
-          decryption_message << @char_array[b.index(letter)]
+          b_shifted_chars = char_array.rotate(encryption_hash(key, date)["B"])
+          decryption_message << @char_array[b_shifted_chars.index(letter)]
         elsif index % 4 == 2
-          c = char_array.rotate(encryption_hash(key, date)["C"])
-          decryption_message << @char_array[c.index(letter)]
+          c_shifted_chars = char_array.rotate(encryption_hash(key, date)["C"])
+          decryption_message << @char_array[c_shifted_chars.index(letter)]
         elsif index % 4 == 3
-          d = char_array.rotate(encryption_hash(key, date)["D"])
-          decryption_message << @char_array[d.index(letter)]
+          d_shifted_chars = char_array.rotate(encryption_hash(key, date)["D"])
+          decryption_message << @char_array[d_shifted_chars.index(letter)]
         end
       end
     end

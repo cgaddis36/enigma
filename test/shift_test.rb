@@ -67,8 +67,14 @@ class ShiftTest < Minitest::Test
       assert_equal "hello world", @shift.decrypted_message("keder ohulw", "02715", "040895")
     end
 
-    # def test_decryption_hash
-    #
-    # end
+    def test_decryption_hash
+      expected = {
+      decryption: "hello world",
+      key: "02715",
+      date: "040895"
+      }
+      assert_equal expected, @shift.decrypt("keder ohulw", "02715", "040895")
+      assert_instance_of Hash, @shift.decrypt("keder ohulw", "02715")
+    end
 
 end
