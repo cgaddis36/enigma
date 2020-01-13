@@ -72,11 +72,8 @@ class Shift
     new_message.join
   end
 
-  def encrypt(message, key = @key, date = @date)
-    encryption = {}
-    encryption[:encryption] = encrypted_message(message, key, date),
-    encryption[:key] = key,
-    encryption[:offset] = date
+  def encrypt(message, key = @key, date = offset)
+    {encryption: encrypted_message(message, key, date), key: key, date: date}
 
   end
 
