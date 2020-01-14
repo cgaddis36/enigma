@@ -20,6 +20,7 @@ class EnigmaTest < Minitest::Test
     end
 
     def test_encrypt_message_test
+      require "pry"; binding.pry
       assert_instance_of Hash, @enigma.encrypt("Hello, World!", "02715")
       assert_equal 3, @enigma.encrypt("Hello, World!").size
     end
