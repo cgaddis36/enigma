@@ -3,11 +3,12 @@ require_relative '../lib/shift'
 
 class Enigma < Shift
 
-  def initialize(rand_keys, date)
-    super(rand_keys, date)
+  def initialize
+    super
   end
 
-  def encrypt(message, key = @key, date = @date)
+  def encrypt(message, key = @key, date = offset)
+    
   end
 
 

@@ -15,8 +15,8 @@ class EnigmaTest < Minitest::Test
     end
 
     def test_enigma_super_attrbutes
-      assert_instance_of Array, @enigma.rand_keys
-      assert_equal 5, @enigma.rand_keys.size
+      assert_instance_of Array, @enigma.key
+      assert_equal 5, @enigma.key.size
     end
 
     def test_encrypt_message_test
