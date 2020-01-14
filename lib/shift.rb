@@ -11,25 +11,21 @@ class Shift
     Array.new(5){rand(10)}
   end
 
-  # e(date = @date)
-  #   (date.to_i ** 2).to_s[-4..-1].split(//)
-  # end
-
-  def inner_number_array(key = @key)
-    inner_number_array = []
+  def inner_number_keys_array(key = @key)
+    inner_number_keys_array = []
     if !key.is_a? Array
       key = key.to_s.split(//).map do |key|
         key.to_i
       end
     end
       key.each_cons(2) do |inner_numbers|
-      inner_number_array << inner_numbers.join
+      inner_number_keys_array << inner_numbers.join
     end
-    inner_number_array = inner_number_array.flatten
+    inner_number_keys_array = inner_number_keys_array.flatten
   end
 
   def encryption_hash(key = @key, date = @date)
-    x = inner_number_array(key).each_with_index.reduce({}) do |keys_hash, (number, index)|
+    x = inner_number_keys_array(key).each_with_index.reduce({}) do |keys_hash, (number, index)|
         keys_hash[(65 + index).chr] = number.to_i + (date.to_i ** 2).to_s.split(//)[-4..-1][index].to_i
       keys_hash
     end
@@ -68,14 +64,6 @@ class Shift
     new_message.join
   end
 
-  def encrypt(message, key = @key, date = @date)
-    {encryption: encrypted_message(message, key, date), key: key, date: date}
-  end
-
-  def decrypt(message, key = @key, date = @date)
-    {decryption: decrypted_message(message, key, date), key: key, date: date}
-  end
-
   def decrypted_message(message, key = @key, date = @date)
     decryption_message = []
     split_message(message).each do |inner_array|
@@ -98,6 +86,14 @@ class Shift
       end
     end
     decryption_message.join
+  end
+
+  def encrypt(message, key = @key, date = @date)
+    {encryption: encrypted_message(message, key, date), key: key, date: date}
+  end
+
+  def decrypt(message, key = @key, date = @date)
+    {decryption: decrypted_message(message, key, date), key: key, date: date}
   end
 
 end
