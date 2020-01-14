@@ -1,8 +1,8 @@
 class Shift
-  attr_reader :char_array, :date, :key
+  attr_reader :enigma_alphabet, :date, :key
 
   def initialize
-    @char_array = ("a".."z").to_a << " "
+    @enigma_alphabet = ("a".."z").to_a << " "
     @date = DateTime.now.strftime('%d%m%y')
     @key = key
   end
@@ -25,11 +25,11 @@ class Shift
   end
 
   def encryption_hash(key = @key, date = @date)
-    x = inner_number_keys_array(key).each_with_index.reduce({}) do |keys_hash, (number, index)|
-        keys_hash[(65 + index).chr] = number.to_i + (date.to_i ** 2).to_s.split(//)[-4..-1][index].to_i
-      keys_hash
+    keys_hash = inner_number_keys_array(key).each_with_index.reduce({}) do |acc, (number, index)|
+      acc[(65 + index).chr] = number.to_i + (date.to_i ** 2).to_s.split(//)[-4..-1][index].to_i
+      acc
     end
-    x
+    keys_hash
   end
 
   def split_message(message)
@@ -44,20 +44,20 @@ class Shift
     new_message = []
     split_message(message).each do |inner_array|
       inner_array.map.with_index do |letter, index|
-        if !@char_array.include?(letter)
+        if !@enigma_alphabet.include?(letter)
           new_message << letter
         elsif index % 4 == 0
-          a = @char_array.rotate(encryption_hash(key, date)["A"])
-          new_message << a[(@char_array.index(letter))]
+          a = @enigma_alphabet.rotate(encryption_hash(key, date)["A"])
+          new_message << a[(@enigma_alphabet.index(letter))]
         elsif index % 4 == 1
-          b = @char_array.rotate(encryption_hash(key, date)["B"])
-          new_message << b[(@char_array.index(letter))]
+          b = @enigma_alphabet.rotate(encryption_hash(key, date)["B"])
+          new_message << b[(@enigma_alphabet.index(letter))]
         elsif index % 4 == 2
-          c = @char_array.rotate(encryption_hash(key, date)["C"])
-          new_message << c[(@char_array.index(letter))]
+          c = @enigma_alphabet.rotate(encryption_hash(key, date)["C"])
+          new_message << c[(@enigma_alphabet.index(letter))]
         elsif index % 4 == 3
-          d = @char_array.rotate(encryption_hash(key, date)["D"])
-          new_message << d[(@char_array.index(letter))]
+          d = @enigma_alphabet.rotate(encryption_hash(key, date)["D"])
+          new_message << d[(@enigma_alphabet.index(letter))]
         end
       end
     end
@@ -68,20 +68,20 @@ class Shift
     decryption_message = []
     split_message(message).each do |inner_array|
       inner_array.map.with_index do |letter, index|
-        if !@char_array.include?(letter)
+        if !@enigma_alphabet.include?(letter)
           decryption_message << letter
         elsif index % 4 == 0
-          a_shifted_chars = char_array.rotate(encryption_hash(key, date)["A"])
-          decryption_message << @char_array[a_shifted_chars.index(letter)]
+          a_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["A"])
+          decryption_message << @enigma_alphabet[a_shifted_chars.index(letter)]
         elsif index % 4 == 1
-          b_shifted_chars = char_array.rotate(encryption_hash(key, date)["B"])
-          decryption_message << @char_array[b_shifted_chars.index(letter)]
+          b_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["B"])
+          decryption_message << @enigma_alphabet[b_shifted_chars.index(letter)]
         elsif index % 4 == 2
-          c_shifted_chars = char_array.rotate(encryption_hash(key, date)["C"])
-          decryption_message << @char_array[c_shifted_chars.index(letter)]
+          c_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["C"])
+          decryption_message << @enigma_alphabet[c_shifted_chars.index(letter)]
         elsif index % 4 == 3
-          d_shifted_chars = char_array.rotate(encryption_hash(key, date)["D"])
-          decryption_message << @char_array[d_shifted_chars.index(letter)]
+          d_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["D"])
+          decryption_message << @enigma_alphabet[d_shifted_chars.index(letter)]
         end
       end
     end
@@ -89,10 +89,16 @@ class Shift
   end
 
   def encrypt_hash(message, key = @key, date = @date)
+    if !key.is_a? String
+       key = key.join
+    end
     {encryption: encrypted_message(message, key, date), key: key, date: date}
   end
 
   def decrypt_hash(message, key = @key, date = @date)
+    if !key.is_a? String
+       key = key.join
+    end
     {decryption: decrypted_message(message, key, date), key: key, date: date}
   end
 

@@ -5,6 +5,9 @@ require 'date'
   encrypted_file = File.open('./lib/encrypted.txt', 'w')
   shift = Shift.new
 
+  ARGV == ['./lib/message.txt', './lib/encrypted.txt']
+
+
   read_file = file_to_encrypt.read
   encrypted_file.write(shift.encrypt_hash(read_file.gsub("\n","")))
 

@@ -16,9 +16,9 @@ class ShiftTest < Minitest::Test
                   "i", "j", "k", "l", "m", "n", "o", "p",
                   "q", "r", "s", "t", "u", "v", "w", "x",
                   "y", "z", " "]
-      assert_instance_of Array, @shift.char_array
-      assert_equal expected, @shift.char_array
-      assert_equal 27, @shift.char_array.size
+      assert_instance_of Array, @shift.enigma_alphabet
+      assert_equal expected, @shift.enigma_alphabet
+      assert_equal 27, @shift.enigma_alphabet.size
       assert_instance_of String, @shift.date
       assert_equal 6, @shift.date.size
     end
@@ -69,10 +69,11 @@ class ShiftTest < Minitest::Test
       expected2 = {
       encryption: "nib udmcxpu",
       key: "02715",
-      date: "130120"
+      date: "140120"
       }
       assert_equal expected1, @shift.encrypt_hash("hello world", "02715", "040895")
       assert_equal expected2, @shift.encrypt_hash("hello world", "02715")
+      assert_equal expected2, @shift.encrypt_hash("hello world", ['0','2','7','1','5'])
       assert_instance_of Hash, @shift.encrypt_hash("hello world", "02715")
     end
 
@@ -85,11 +86,13 @@ class ShiftTest < Minitest::Test
       expected2 = {
       decryption: "hello world",
       key: "02715",
-      date: "130120"
+      date: "140120"
       }
-      assert_equal expected1, @shift.decrypt_hash("keder ohulw", "02715", "040895")
+
       assert_instance_of Hash, @shift.decrypt_hash("keder ohulw", "02715")
+      assert_equal expected1, @shift.decrypt_hash("keder ohulw", "02715", "040895")
       assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", "02715")
+      assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", ['0','2','7','1','5'])
     end
 
 end
