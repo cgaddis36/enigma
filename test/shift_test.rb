@@ -89,8 +89,8 @@ class ShiftTest < Minitest::Test
       date: "140120"
       }
 
-      assert_equal expected1, @shift.decrypt_hash("keder ohulw", "02715", "040895")
       assert_instance_of Hash, @shift.decrypt_hash("keder ohulw", "02715")
+      assert_equal expected1, @shift.decrypt_hash("keder ohulw", "02715", "040895")
       assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", "02715")
       assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", ['0','2','7','1','5'])
     end

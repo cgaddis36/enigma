@@ -20,13 +20,38 @@ class EnigmaTest < Minitest::Test
     end
 
     def test_encrypt_message_test
-      require "pry"; binding.pry
+      expected1 = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+      }
+      expected2 = {
+      encryption: "nib udmcxpu",
+      key: "02715",
+      date: "140120"
+      }
       assert_instance_of Hash, @enigma.encrypt("Hello, World!", "02715")
+      assert_equal expected1, @enigma.encrypt("hello world", "02715", "040895")
+      assert_equal expected2, @enigma.encrypt("hello world", "02715")
       assert_equal 3, @enigma.encrypt("Hello, World!").size
     end
 
     def test_decrypt_message_test
+      expected1 = {
+      decryption: "hello world",
+      key: "02715",
+      date: "040895"
+      }
+      expected2 = {
+      decryption: "hello world",
+      key: "02715",
+      date: "140120"
+      }
       assert_instance_of Hash, @enigma.decrypt("oioeu, dkfjb!")
+      assert_equal expected1, @enigma.decrypt("keder ohulw", "02715", "040895")
+      assert_equal expected2, @enigma.decrypt("nib udmcxpu", "02715")
       assert_equal 3, @enigma.decrypt("oioeu, dkfjb!").size
+      encrypted = @enigma.encrypt("hello world", "02715")
+      assert_equal expected2, @enigma.decrypt(encrypted[:encryption], "02715")
     end
 end
