@@ -9,3 +9,4 @@ require 'date'
   encrypted_file.write(shift.encrypt_hash(read_file.gsub("\n","")))
 
   p "created 'encrypted.txt' with the key #{shift.key.join} and date #{shift.date}"
+require "pry"; binding.pry

@@ -89,10 +89,16 @@ class Shift
   end
 
   def encrypt_hash(message, key = @key, date = @date)
+    if !key.is_a? String
+       key = key.join
+    end
     {encryption: encrypted_message(message, key, date), key: key, date: date}
   end
 
   def decrypt_hash(message, key = @key, date = @date)
+    if !key.is_a? String
+       key = key.join
+    end
     {decryption: decrypted_message(message, key, date), key: key, date: date}
   end
 
