@@ -71,9 +71,9 @@ class ShiftTest < Minitest::Test
       key: "02715",
       date: "130120"
       }
-      assert_equal expected1, @shift.encrypt("hello world", "02715", "040895")
-      assert_equal expected2, @shift.encrypt("hello world", "02715")
-      assert_instance_of Hash, @shift.encrypt("hello world", "02715")
+      assert_equal expected1, @shift.encrypt_hash("hello world", "02715", "040895")
+      assert_equal expected2, @shift.encrypt_hash("hello world", "02715")
+      assert_instance_of Hash, @shift.encrypt_hash("hello world", "02715")
     end
 
     def test_decrypt
@@ -87,9 +87,9 @@ class ShiftTest < Minitest::Test
       key: "02715",
       date: "130120"
       }
-      assert_equal expected1, @shift.decrypt("keder ohulw", "02715", "040895")
-      assert_instance_of Hash, @shift.decrypt("keder ohulw", "02715")
-      assert_equal expected2, @shift.decrypt("nib udmcxpu", "02715")
+      assert_equal expected1, @shift.decrypt_hash("keder ohulw", "02715", "040895")
+      assert_instance_of Hash, @shift.decrypt_hash("keder ohulw", "02715")
+      assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", "02715")
     end
 
 end

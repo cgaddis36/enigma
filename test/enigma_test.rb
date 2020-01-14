@@ -20,7 +20,7 @@ class EnigmaTest < Minitest::Test
     end
 
     def test_encrypt_message_test
-      assert_instance_of String, @enigma.encrypt("Hello, World!")
-      assert_equal 13, @enigma.encrypt("Hello, World!").size
+      assert_instance_of Hash, @enigma.encrypt_hash("Hello, World!")
+      assert_equal 3, @enigma.encrypt_hash("Hello, World!").size
     end
 end

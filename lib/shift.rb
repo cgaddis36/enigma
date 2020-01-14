@@ -88,11 +88,11 @@ class Shift
     decryption_message.join
   end
 
-  def encrypt(message, key = @key, date = @date)
+  def encrypt_hash(message, key = @key, date = @date)
     {encryption: encrypted_message(message, key, date), key: key, date: date}
   end
 
-  def decrypt(message, key = @key, date = @date)
+  def decrypt_hash(message, key = @key, date = @date)
     {decryption: decrypted_message(message, key, date), key: key, date: date}
   end
 

@@ -8,7 +8,7 @@ class Enigma < Shift
   end
 
   def encrypt(message, key = @key, date = offset)
-    
+    encrypt_hash(message, key, date)
   end
 
 
