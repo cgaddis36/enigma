@@ -1,13 +1,13 @@
 require './lib/enigma.rb'
 require 'date'
 
-  file_to_encrypt = File.open('./lib/message.txt', 'r')
-  encrypted_file = File.open('./lib/encrypted.txt', 'w')
+  file_to_decrypt = File.open(ARGV[0], 'r')
+  decrypted_file = File.open(ARGV[1], 'w')
   enigma = Enigma.new
 
-  ARGV == ['./lib/message.txt', './lib/encrypted.txt']
 
-  read_file = file_to_encrypt.read
-  encrypted_file.write(enigma.encrypt(read_file.gsub("\n","")))
+  read_file = file_to_decrypt.read
+  decrypted_file.write(enigma.decrypt(read_file.gsub("\"","")[14..24], read_file.gsub("\"","")[33..37], read_file.gsub("\"","")[-7..-2]))
+  decrypted_file.close
 
-  p "created 'encrypted.txt' with the key #{enigma.key.join} and date #{enigma.date}"
+  p "created 'decrypted.txt' with the key #{enigma.key.join} and date #{enigma.date}"
