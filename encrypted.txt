@@ -1,1 +1,0 @@
-{:encryption=>" xcvgsnyjdv", :key=>"96991", :date=>"140120"}
