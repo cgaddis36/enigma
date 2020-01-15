@@ -17,7 +17,7 @@ class EnigmaTest < Minitest::Test
     def test_enigma_super_attrbutes
       assert_instance_of Array, @enigma.key
       assert_equal 5, @enigma.key.size
-      
+      assert_equal 6, @enigma.date.size
     end
 
     def test_encrypt_message_test
@@ -32,10 +32,10 @@ class EnigmaTest < Minitest::Test
       date: "140120"
       }
       assert_instance_of Hash, @enigma.encrypt("Hello, World!", "02715")
+      assert_instance_of Hash, @enigma.encrypt("Hello, World!")
       assert_equal expected1, @enigma.encrypt("hello world", "02715", "040895")
       assert_equal expected2, @enigma.encrypt("hello world", "02715")
       assert_equal 3, @enigma.encrypt("Hello, World!").size
-      assert_instance_of Hash, @enigma.encrypt("Hello, World!")
     end
 
     def test_decrypt_message_test
