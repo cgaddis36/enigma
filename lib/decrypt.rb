@@ -10,4 +10,4 @@ require 'date'
   decrypted_file.write(enigma.decrypt(read_file.gsub("\"","")[14..24], read_file.gsub("\"","")[33..37], read_file.gsub("\"","")[-7..-2]))
   decrypted_file.close
 
-  p "created 'decrypted.txt' with the key #{enigma.key.join} and date #{enigma.date}"
+  p "created 'decrypted.txt' with the key #{ARGV[2]} and date #{ARGV[3]}"
