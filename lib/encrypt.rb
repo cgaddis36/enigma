@@ -10,6 +10,6 @@ require 'date'
   encrypted_file.write(enigma.encrypt(read_file.gsub("\n","")))
   encrypted_file.close
 
-  reading = read_encrypted_file.read
-  
-  p "created 'encrypted.txt' with the key #{reading[36..40]} and date #{reading[-8..-3]}"
+  read_file = read_encrypted_file.read
+
+  p "created 'encrypted.txt' with the key #{read_file[36..40]} and date #{read_file[-8..-3]}"
