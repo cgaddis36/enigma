@@ -7,9 +7,13 @@ require 'date'
   enigma = Enigma.new
 
   read_file = file_to_encrypt.read
-  encrypted_file.write(enigma.encrypt(read_file.gsub("\n","")))
+
+  encrypted_hash = enigma.encrypt(read_file.gsub("\n",""))
+
+
+  encrypted_file.write(encrypted_hash[:encryption])
   encrypted_file.close
 
   read_file = read_encrypted_file.read
 
-  p "created 'encrypted.txt' with the key #{read_file[36..40]} and date #{read_file[-8..-3]}"
+  p "created 'encrypted.txt' with the key #{encrypted_hash[:key]} and date #{encrypted_hash[:date]}"
