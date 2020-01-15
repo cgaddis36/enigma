@@ -8,7 +8,7 @@ require 'date'
 
   read_file = file_to_encrypt.read
 
-  encrypted_hash = enigma.encrypt(read_file.gsub("\n",""))
+  encrypted_hash = enigma.encrypt(read_file.gsub("\n",""), *ARGV[2..3])
 
 
   encrypted_file.write(encrypted_hash[:encryption])
