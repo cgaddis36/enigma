@@ -24,12 +24,12 @@ class Shift
     inner_number_keys_array = inner_number_keys_array.flatten
   end
 
-  def encryption_hash(key = @key, date = @date)
-    keys_hash = inner_number_keys_array(key).each_with_index.reduce({}) do |acc, (number, index)|
+  def keys_hash(key = @key, date = @date)
+    keys_hash_ABCD = inner_number_keys_array(key).each_with_index.reduce({}) do |acc, (number, index)|
       acc[(65 + index).chr] = number.to_i + (date.to_i ** 2).to_s.split(//)[-4..-1][index].to_i
       acc
     end
-    keys_hash
+    keys_hash_ABCD
   end
 
   def split_message(message)
@@ -47,16 +47,16 @@ class Shift
         if !@enigma_alphabet.include?(letter)
           new_message << letter
         elsif index % 4 == 0
-          a = @enigma_alphabet.rotate(encryption_hash(key, date)["A"])
+          a = @enigma_alphabet.rotate(keys_hash(key, date)["A"])
           new_message << a[(@enigma_alphabet.index(letter))]
         elsif index % 4 == 1
-          b = @enigma_alphabet.rotate(encryption_hash(key, date)["B"])
+          b = @enigma_alphabet.rotate(keys_hash(key, date)["B"])
           new_message << b[(@enigma_alphabet.index(letter))]
         elsif index % 4 == 2
-          c = @enigma_alphabet.rotate(encryption_hash(key, date)["C"])
+          c = @enigma_alphabet.rotate(keys_hash(key, date)["C"])
           new_message << c[(@enigma_alphabet.index(letter))]
         elsif index % 4 == 3
-          d = @enigma_alphabet.rotate(encryption_hash(key, date)["D"])
+          d = @enigma_alphabet.rotate(keys_hash(key, date)["D"])
           new_message << d[(@enigma_alphabet.index(letter))]
         end
       end
@@ -71,16 +71,16 @@ class Shift
         if !@enigma_alphabet.include?(letter)
           decryption_message << letter
         elsif index % 4 == 0
-          a_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["A"])
+          a_shifted_chars = enigma_alphabet.rotate(keys_hash(key, date)["A"])
           decryption_message << @enigma_alphabet[a_shifted_chars.index(letter)]
         elsif index % 4 == 1
-          b_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["B"])
+          b_shifted_chars = enigma_alphabet.rotate(keys_hash(key, date)["B"])
           decryption_message << @enigma_alphabet[b_shifted_chars.index(letter)]
         elsif index % 4 == 2
-          c_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["C"])
+          c_shifted_chars = enigma_alphabet.rotate(keys_hash(key, date)["C"])
           decryption_message << @enigma_alphabet[c_shifted_chars.index(letter)]
         elsif index % 4 == 3
-          d_shifted_chars = enigma_alphabet.rotate(encryption_hash(key, date)["D"])
+          d_shifted_chars = enigma_alphabet.rotate(keys_hash(key, date)["D"])
           decryption_message << @enigma_alphabet[d_shifted_chars.index(letter)]
         end
       end
@@ -101,5 +101,4 @@ class Shift
     end
     {decryption: decrypted_message(message, key, date), key: key, date: date}
   end
-
 end

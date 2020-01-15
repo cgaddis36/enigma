@@ -35,11 +35,11 @@ class ShiftTest < Minitest::Test
       assert_equal ["60", "08", "81", "16"], @shift.inner_number_keys_array(60816)
     end
 
-    def test_encryption_hash
+    def test_keys_hash
       expected = {"A"=>3, "B"=>27, "C"=>73, "D"=>20}
-      assert_instance_of Hash, @shift.encryption_hash
-      assert_equal 4, @shift.encryption_hash.size
-      assert_equal expected, @shift.encryption_hash("02715", "040895")
+      assert_instance_of Hash, @shift.keys_hash
+      assert_equal 4, @shift.keys_hash.size
+      assert_equal expected, @shift.keys_hash("02715", "040895")
     end
 
     def test_split_message
