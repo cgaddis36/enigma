@@ -69,7 +69,7 @@ class ShiftTest < Minitest::Test
       expected2 = {
       encryption: "nib udmcxpu",
       key: "02715",
-      date: "140120"
+      date: "150120"
       }
       assert_equal expected1, @shift.encrypt_hash("hello world", "02715", "040895")
       assert_equal expected2, @shift.encrypt_hash("hello world", "02715")
@@ -86,7 +86,7 @@ class ShiftTest < Minitest::Test
       expected2 = {
       decryption: "hello world",
       key: "02715",
-      date: "140120"
+      date: "150120"
       }
 
       assert_instance_of Hash, @shift.decrypt_hash("keder ohulw", "02715")
