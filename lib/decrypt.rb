@@ -7,8 +7,8 @@ require 'date'
 
 
   read_file = file_to_decrypt.read
-  decrypted = enigma.decrypt(read_file, ARGV[2], ARGV[3])
+  decrypted_hash = enigma.decrypt(read_file, ARGV[2], ARGV[3])
 
-  decrypted_file.write(decrypted[:decryption])
+  decrypted_file.write(decrypted_hash[:decryption])
 
   p "created 'decrypted.txt' with the key #{ARGV[2]} and date #{ARGV[3]}"
