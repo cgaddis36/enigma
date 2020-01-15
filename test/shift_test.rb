@@ -94,5 +94,4 @@ class ShiftTest < Minitest::Test
       assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", "02715")
       assert_equal expected2, @shift.decrypt_hash("nib udmcxpu", ['0','2','7','1','5'])
     end
-
 end
