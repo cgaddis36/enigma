@@ -1,0 +1,24 @@
+1 Find Leash
+  1.1 Remember where you put Leash
+    1.1.1 Walk to where the leash is
+    1.1.2 Grab leash
+    1.1.3 Attach poop bags
+    1.1.4 Grab Treats
+    1.1.5 grab Ball
+3 Find Dog
+  3.1 Call Dog's Name
+  3.2 Attach Leash to collar
+ Walk outside
+  3.1 Walk to door
+    3.1.1 Grab Doorhandle
+    3.1.2 Turn Doorhandle
+    3.1.3 push Door
+  3.2 Walk around Block
+  3.3 Go to park
+    3.3.1 Throw Ball
+    3.3.2 pick up poop
+    3.3.3 find trashcan
+    3.3.4 Throw poop away
+    3.3.5 throw ball more
+  3.4 find way home
+  3.5 give dog treat for walk completion
